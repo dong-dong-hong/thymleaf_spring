@@ -94,12 +94,29 @@ public class BasicItemController {
         //HelloWorld helloWorld
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
         return "basic/item";
         // @ModelAttribute 자체도 생략가능하다.
         // 대상 객체는 모델에 자동 등록된다. 나머지 사항은 기존과 동일하다.
+    }
+
+    /*
+      PRG - Post/Redirect/Get
+     */
+
+    @PostMapping("/add")
+    public String addItemV5(Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId() ;
+
+        // 상품 등록 처리 이후에 뷰 템플릿이 아니라 상품 상세 화면으로 리다이렉트 하도록 코드를 작성해보자.
+        // 이런 문제 해결 방식을 PRG Post/Redirect/Get 라 한다.
+
+        //주의
+        //> "redirect:/basic/items/" + item.getId() redirect에서 +item.getId() 처럼 URL에 변수를
+        // 더해서 사용하는 것은 URL 인코딩이 안되기 때문에 위험하다.
     }
 
     @GetMapping("/{itemId}/edit")
