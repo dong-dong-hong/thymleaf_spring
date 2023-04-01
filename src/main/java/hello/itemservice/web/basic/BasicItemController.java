@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -106,7 +107,7 @@ public class BasicItemController {
       PRG - Post/Redirect/Get
      */
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
         return "redirect:/basic/items/" + item.getId() ;
@@ -117,6 +118,20 @@ public class BasicItemController {
         //주의
         //> "redirect:/basic/items/" + item.getId() redirect에서 +item.getId() 처럼 URL에 변수를
         // 더해서 사용하는 것은 URL 인코딩이 안되기 때문에 위험하다.
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes){
+        Item saveItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId" , saveItem.getId()); // ※ model.addAttribute : 템플릿 엔진에 자바 변수를 넘기는 메서드
+        redirectAttributes.addAttribute("status" , true);
+        return "redirect:/basic/items/{itemId}";
+
+        // RedirectAttributes
+        //RedirectAttributes 를 사용하면 URL 인코딩도 해주고, pathVarible , 쿼리 파라미터까지 처리해준다.
+        //redirect:/basic/items/{itemId}
+        //pathVariable 바인딩: {itemId} @pathVariable 어노테이션은 요청 URL 매핑에서 템플릿 변수를 처리하고 이를 메서드 매개변수로 설정하는 데 사용
+        //나머지는 쿼리 파라미터로 처리: ?status=true
     }
 
     @GetMapping("/{itemId}/edit")
