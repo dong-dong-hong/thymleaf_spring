@@ -11,19 +11,13 @@
 </head>
 <body>
 <div class="container">
+
   <div class="py-5 text-center">
     <h2>상품 상세</h2>
   </div>
 
   <!-- 추가 -->
   <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
-<!--
-th:if : 해당 조건이 참이면 실행
-${param.status} : 타임리프에서 쿼리 파라미터를 편리하게 조회하는 기능
-원래는 컨트롤러에서 모델에 직접 담고 값을 꺼내야 한다. 그런데 쿼리 파라미터는 자주 사용해서 타임리프에서 직접 지원한다.
-뷰 템플릿에 메시지를 추가하고 실행해보면 "저장 완료!" 라는 메시지가 나오는 것을 확인할 수 있다.
-물론 상품 목록에서 상품 상세로 이동한 경우에는 해당 메시지가 출력되지 않는다.
--->
 
   <div>
     <label for="itemId">상품 ID</label>
@@ -46,27 +40,12 @@ ${param.status} : 타임리프에서 쿼리 파라미터를 편리하게 조회�
 
   <div class="row">
     <div class="col">
-      <button class="w-100 btn btn-primary btn-lg" onclick="location.href='editForm.html'" th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|" type="button">상품 수정</button>
+      <button class="w-100 btn btn-primary btn-lg" onclick="location.href='editForm.html'" th:onclick="|location.href='@{/form/items/{itemId}/edit(itemId=${item.id})}'|" type="button">상품 수정</button>
     </div>
     <div class="col">
-      <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href ='@{/basic/items}'|" type="button">목록으로</button>
+      <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href ='@{/form/items}'|" type="button">목록으로</button>
     </div>
   </div>
 </div> <!-- /container -->
 </body>
 </html>
-
-<!--
-속성 변경 - th:value
-th:value="${item.id}"
-모델에 있는 item 정보를 획득하고 프로퍼티 접근법으로 출력한다. ( item.getId() )
-value 속성을 th:value 속성으로 변경한다.
-
-상품수정 링크
-th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
-
-목록으로 링크
-th:onclick="|location.href='@{/basic/items}'|"
-
-
--->
