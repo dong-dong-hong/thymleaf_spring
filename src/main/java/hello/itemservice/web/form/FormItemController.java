@@ -1,10 +1,9 @@
-package hello.itemservice.web.basic;
+package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/basic/items")
 @RequiredArgsConstructor
-public class BasicItemController {
+public class FormItemController {
 
     private final ItemRepository itemRepository;
 
